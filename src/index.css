@@ -8,35 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Coffee-inspired warm palette */
+    --background: 45 15% 97%;
+    --background-secondary: 42 18% 94%;
+    --foreground: 25 25% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 45 20% 98%;
+    --card-foreground: 25 25% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 45 20% 98%;
+    --popover-foreground: 25 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Rich coffee brown primary */
+    --primary: 25 35% 25%;
+    --primary-foreground: 45 15% 97%;
+    --primary-light: 25 25% 35%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Cream secondary */
+    --secondary: 42 25% 90%;
+    --secondary-foreground: 25 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Warm muted tones */
+    --muted: 40 20% 88%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Golden accent */
+    --accent: 38 75% 65%;
+    --accent-foreground: 25 25% 15%;
+    --accent-light: 38 60% 80%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 45 15% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 38 75% 65%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Custom coffee theme gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-light)));
+    --gradient-warm: linear-gradient(180deg, hsl(var(--background)), hsl(var(--background-secondary)));
+    
+    /* Shadows with warm tones */
+    --shadow-warm: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-accent: 0 5px 20px -5px hsl(var(--accent) / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +77,37 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark coffee theme */
+    --background: 25 15% 8%;
+    --background-secondary: 25 20% 12%;
+    --foreground: 45 15% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 25 20% 10%;
+    --card-foreground: 45 15% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 25 20% 10%;
+    --popover-foreground: 45 15% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 38 75% 65%;
+    --primary-foreground: 25 15% 8%;
+    --primary-light: 38 60% 75%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 25 15% 18%;
+    --secondary-foreground: 45 15% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 25 10% 15%;
+    --muted-foreground: 40 10% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 38 75% 65%;
+    --accent-foreground: 25 15% 8%;
+    --accent-light: 38 60% 80%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 45 15% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 25 15% 20%;
+    --input: 25 15% 20%;
+    --ring: 38 75% 65%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +125,35 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Hero button variant */
+  .btn-hero {
+    @apply bg-gradient-to-r from-accent to-accent-light text-accent-foreground 
+           px-8 py-4 rounded-xl font-semibold text-lg
+           shadow-accent hover:shadow-lg hover:scale-105
+           transition-all duration-300 border-0;
+  }
+  
+  /* Menu card styling */
+  .menu-card {
+    @apply bg-card border border-border rounded-2xl p-6 
+           shadow-warm hover:shadow-lg hover:-translate-y-1
+           transition-all duration-300;
+  }
+  
+  /* Section styling */
+  .section-gradient {
+    @apply bg-gradient-to-b from-background to-background-secondary;
+  }
+  
+  /* Arabic text enhancement */
+  .arabic-text {
+    font-feature-settings: "liga" 1, "calt" 1;
+    letter-spacing: 0.02em;
   }
 }
